@@ -14,7 +14,7 @@ jobs:
 
       - name: Verificar desafio 1 (nome no alunos.md)
         run: |
-          linhas=$(wc -l < desafios/01-commit/alunos.md)
+          linhas=$(wc -l < desafio/01-commit/alunos.md)
           if [ "$linhas" -le 2 ]; then
             echo "❌ Você precisa adicionar seu nome no arquivo alunos.md"
             exit 1
@@ -24,7 +24,7 @@ jobs:
 
       - name: Verificar desafio 3 (resposta preenchida)
         run: |
-          linhas=$(wc -l < desafios/03-pull-request/resposta.md)
+          linhas=$(wc -l < desafio/03-pull-request/resposta.md)
           if [ "$linhas" -le 1 ]; then
             echo "❌ Você precisa responder a pergunta no resposta.md"
             exit 1
