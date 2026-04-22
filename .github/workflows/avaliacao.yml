@@ -1,0 +1,30 @@
+name: Avaliação automática
+
+on:
+  pull_request:
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v3
+
+      - name: Verificar se aluno editou alunos.md
+        run: |
+          if grep -q "Adicione seu nome" desafios/01-commit/alunos.md; then
+            echo "Você não editou o arquivo ainda"
+            exit 1
+          else
+            echo "OK - você editou"
+          fi
+
+      - name: Verificar resposta final
+        run: |
+          if grep -q "Responda:" desafios/03-pull-request/resposta.md; then
+            echo "Você não respondeu ainda"
+            exit 1
+          else
+            echo "OK - resposta feita"
+          fi
