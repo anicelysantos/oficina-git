@@ -2,6 +2,7 @@ name: Avaliação automática
 
 on:
   pull_request:
+    types: [opened, synchronize]
 
 jobs:
   validar:
@@ -11,20 +12,22 @@ jobs:
       - name: Baixar código
         uses: actions/checkout@v3
 
-      - name: Verificar se aluno editou alunos.md
+      - name: Verificar desafio 1 (nome no alunos.md)
         run: |
-          if grep -q "Adicione seu nome" desafios/01-commit/alunos.md; then
-            echo "Você não editou o arquivo ainda"
+          linhas=$(wc -l < desafios/01-commit/alunos.md)
+          if [ "$linhas" -le 2 ]; then
+            echo "❌ Você precisa adicionar seu nome no arquivo alunos.md"
             exit 1
           else
-            echo "OK - você editou"
+            echo "✅ Nome adicionado corretamente"
           fi
 
-      - name: Verificar resposta final
+      - name: Verificar desafio 3 (resposta preenchida)
         run: |
-          if grep -q "Responda:" desafios/03-pull-request/resposta.md; then
-            echo "Você não respondeu ainda"
+          linhas=$(wc -l < desafios/03-pull-request/resposta.md)
+          if [ "$linhas" -le 1 ]; then
+            echo "❌ Você precisa responder a pergunta no resposta.md"
             exit 1
           else
-            echo "OK - resposta feita"
+            echo "✅ Resposta adicionada"
           fi
